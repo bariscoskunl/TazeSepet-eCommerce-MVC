@@ -1,0 +1,49 @@
+/* Category Edit Specific Styles */
+
+.form-card-header .header-icon {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.btn-action i.fa-refresh {
+    animation: none;
+}
+
+.btn-action:hover i.fa-refresh {
+    animation: rotate 0.6s ease-in-out;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Validation Alert Animation */
+.validation-alert[style*="display: block"] {
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Form Input Focus Effects */
+.field-input:focus {
+    background: #f8f9ff;
+}
+
+/* Success Message Styling */
+.swal2-confirm {
+    font-weight: 600 !important;
+    padding: 10px 30px !important;
+}

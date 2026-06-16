@@ -1,0 +1,96 @@
+<!-- Sidebar -->
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" asp-controller="Home" asp-action="Index">
+        <div class="sidebar-brand-icon rotate-n-15">
+            <i class="fas fa-shopping-cart"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">TazeSepet <sup>Admin</sup></div>
+    </a>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="Home" asp-action="Index">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+        </a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Yönetim
+    </div>
+
+    <!-- Nav Item - Product Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse"
+           data-target="#collapseProduct"
+           aria-expanded="true" aria-controls="collapseProduct">
+            <i class="fas fa-fw fa-box"></i>
+            <span>Mağaza Yönetimi</span>
+        </a>
+
+        <div id="collapseProduct" class="collapse"
+             aria-labelledby="headingProduct"
+             data-parent="#accordionSidebar">
+
+            <div class="bg-white py-2 collapse-inner rounded">
+
+                <h6 class="collapse-header">Kategori İşlemleri:</h6>
+
+                <a class="collapse-item" href="@Url.Action("Index", "Category", new { area = "Admin" })">
+                    <i class="fas fa-list mr-2 text-gray-400"></i>
+                    Kategoriler
+                </a>
+
+                <a class="collapse-item" asp-action="Create" asp-controller="Category">
+                    <i class="fas fa-plus-circle mr-2 text-gray-400"></i>
+                    Kategori Ekle
+                </a>
+
+                <div class="collapse-divider"></div>
+
+                <h6 class="collapse-header">Ürün İşlemleri:</h6>
+
+                <a class="collapse-item" href="@Url.Action("Index", "Product", new { area = "Admin" })">
+                    <i class="fas fa-box-open mr-2 text-gray-400"></i>
+                    Ürünler
+                </a>
+
+                <div class="collapse-divider"></div>
+                <h6 class="collapse-header">Kullanıcı İşlemleri:</h6>
+
+                <a class="collapse-item" asp-action="List" asp-controller="User">
+                    <i class="fas fa-users mr-2 text-gray-400"></i>
+                    Kullanıcılar
+                </a>
+                
+                <div class="collapse-divider"></div>
+                <h6 class="collapse-header">Yorum İşlemleri:</h6>
+
+                <a class="collapse-item" asp-action="List" asp-controller="Comment">
+                    <i class="fas fa-comments mr-2 text-gray-400"></i>
+                    Yorumlar
+                </a>
+
+            </div>
+        </div>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block">
+
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+
+</ul>
+<!-- End of Sidebar -->

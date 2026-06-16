@@ -1,0 +1,99 @@
+@model ProfileEditViewModel
+
+@{
+    ViewData["Title"] = "Profil Düzenle";
+}
+
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-section set-bg" data-setbg="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&q=80" style="background-image: url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&q=80');">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>Bilgileri Güncelle</h2>
+                    <div class="breadcrumb__option">
+                        <a href="/">Ana Sayfa</a>
+                        <a asp-action="Details">Hesabım</a>
+                        <span>Profili Düzenle</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0" style="border-radius: 15px; overflow:hidden;">
+                <div class="card-header bg-white border-bottom-0 pt-4 pb-0 text-center">
+                    <h3 class="font-weight-bold" style="color: #1c1c1c;">Profil Bilgilerini Güncelle</h3>
+                </div>
+                <div class="card-body p-5">
+                    @if (TempData["SuccessMessage"] != null)
+                    {
+                        <div class="alert alert-success border-0 shadow-sm" style="border-radius: 10px;">
+                            <i class="fa fa-check-circle"></i> @TempData["SuccessMessage"]
+                        </div>
+                    }
+
+                    <form asp-action="Edit" method="post">
+                        @Html.AntiForgeryToken()
+
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>Ad <span>*</span></p>
+                                    <input asp-for="FirstName" placeholder="Adınız" />
+                                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>Soyad <span>*</span></p>
+                                    <input asp-for="LastName" placeholder="Soyadınız" />
+                                    <span asp-validation-for="LastName" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>E-posta <span>*</span></p>
+                                    <input asp-for="Email" placeholder="E-posta" />
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>Telefon <span>*</span></p>
+                                    <input asp-for="Phone" placeholder="Telefon numaranız" />
+                                    <span asp-validation-for="Phone" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="checkout__input">
+                            <p>Adres</p>
+                            <input asp-for="Address" placeholder="Tam adresiniz" />
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+
+                        <div class="mt-4 text-center">
+                            <button type="submit" class="site-btn" style="border-radius:30px; border:none;">Kaydet</button>
+                            <a asp-action="Details" class="site-btn" style="background:#6c757d; border-radius:30px; color:white;">İptal</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

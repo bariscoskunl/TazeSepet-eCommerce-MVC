@@ -1,0 +1,23 @@
+@model IEnumerable<eTicaretUygulamasi.Mvc.App.Data.Entities.CategoryEntity>
+
+<div class="hero__categories">
+    <div class="hero__categories__all">
+        <i class="fa fa-bars"></i>
+        <span>Tüm Kategoriler</span>
+    </div>
+    <ul>
+        <li><a asp-controller="Home" asp-action="Index">Hepsi</a></li>
+        @if (Model != null)
+        {
+            foreach (var cat in Model)
+            {
+                <li>
+                    <a asp-action="Index" asp-controller="Home" asp-route-categoryId="@cat.Id"
+                       style="@(ViewBag.SelectedCategory == cat.Id ? "color:#7fad39; font-weight:bold;" : "")">
+                        @cat.Name
+                    </a>
+                </li>
+            }
+        }
+    </ul>
+</div>

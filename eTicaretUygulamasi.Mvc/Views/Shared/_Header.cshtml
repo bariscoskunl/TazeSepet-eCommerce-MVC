@@ -1,0 +1,171 @@
+<div class="humberger__menu__overlay"></div>
+<div class="humberger__menu__wrapper">
+    <div class="humberger__menu__logo">
+        <a href="#"><img src="img/logo.png" alt=""></a>
+    </div>
+    <div class="humberger__menu__cart">
+        <ul>
+            <li><a href="#"><i class="fa fa-heart"></i> <span></span></a></li>
+            <li><a asp-controller="Cart" asp-action="Edit"><i class="fa fa-shopping-bag"></i> <span>@ViewBag.items</span></a></li>
+        </ul>
+    </div>
+    <div class="humberger__menu__widget">
+        @* Dil seçeneği vs. burada kalabilir *@
+    
+        <div class="header__top__right__auth">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="header__top__right__language">
+                    <i class="fa fa-user-circle" style="font-size: 16px;"></i>
+                    <div>Hesabım</div>
+                    <span class="arrow_carrot-down"></span>
+                    <ul style="width: 150px; padding: 10px; top: 30px;">
+                        @if (User.IsInRole("seller"))
+                        {
+                            <li><a asp-action="MyProducts" asp-controller="Profile"><i class="fa fa-list"></i> Ürünlerim</a></li>
+                        }
+                        <li><a asp-action="Details" asp-controller="Profile"><i class="fa fa-cog"></i> Profilim</a></li>
+                        @if (User.IsInRole("buyer") || User.IsInRole("seller"))
+                        {
+                            <li><a asp-action="MyOrders" asp-controller="Profile"><i class="fa fa-shopping-cart"></i> Siparişlerim</a></li>
+                        }
+                        <li><hr style="margin: 5px 0; border-color: #ebebeb;"></li>
+                        <li>
+                            <a asp-action="Logout" asp-controller="Auth" style="color: #d9534f;">
+                                <i class="fa fa-sign-out"></i> Çıkış Yap
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            }
+            else
+            {
+                <a asp-action="Login" asp-controller="Auth"><i class="fa fa-user"></i> Giriş Yap</a>
+            }
+        </div>
+    </div>
+    <nav class="humberger__menu__nav mobile-menu">
+        <ul>
+            <li class="active"> <a asp-action="Index" asp-controller="Home">Ana Sayfa</a></li>
+            <li><a asp-action="Listing" asp-controller="Home">Mağaza</a></li>
+            <li><a asp-action="Contact" asp-controller="Home">İletişim</a></li>
+            <li><a asp-controller="Home" asp-action="AboutUs">Hakkımızda</a></li>
+        </ul>
+    </nav>
+    <div id="mobile-menu-wrap"></div>
+    <div class="header__top__right__social">
+        <a href="#"><i class="fa fa-facebook"></i></a>
+        <a href="#"><i class="fa fa-twitter"></i></a>
+        <a href="#"><i class="fa fa-linkedin"></i></a>
+        <a href="#"><i class="fa fa-pinterest-p"></i></a>
+    </div>
+    <div class="humberger__menu__contact">
+        <ul>
+            <li><i class="fa fa-envelope"></i> destek@tazesepet.com</li>
+            <li>99 TL üzeri siparişlerde ücretsiz kargo</li>
+        </ul>
+    </div>
+</div>
+<header class="header">
+    <div class="header__top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div class="header__top__left">
+                        <ul>
+                            <li><i class="fa fa-envelope"></i> destek@tazesepet.com</li>
+                            <li>99 TL üzeri siparişlerde ücretsiz kargo</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="header__top__right">
+                        <!-- Sosyal Medya İkonları Kaldırıldı -->
+                        <div class="header__top__right__language">
+                            <i class="fa fa-globe" style="font-size:16px; margin-right:5px;"></i>
+                            <div>Türkçe</div>
+                            <span class="arrow_carrot-down"></span>
+                            <ul>
+                                <li><a href="#">Türkçe</a></li>
+                                <li><a href="#">English</a></li>
+                            </ul>
+
+                        </div>
+                        <div class="header__top__right__auth">
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <div class="header__top__right__language">
+                                    <i class="fa fa-user-circle" style="font-size: 16px;"></i>
+                                    <div>Hesabım</div>
+                                    <span class="arrow_carrot-down"></span>
+                                    <ul style="width: 150px; padding: 10px; top: 30px;">
+                                        @if (User.IsInRole("seller"))
+                                        {
+                                            <li><a asp-action="MyProducts" asp-controller="Profile"><i class="fa fa-list"></i> Ürünlerim</a></li>
+                                        }
+                                        <li><a asp-action="Details" asp-controller="Profile" ><i class="fa fa-cog"></i> Profilim</a></li>
+                                        @if (User.IsInRole("buyer") || User.IsInRole("seller"))
+                                        {
+                                            <li><a asp-action="MyOrders" asp-controller="Profile"><i class="fa fa-shopping-cart"></i> Siparişlerim</a></li>
+                                        }
+
+                                        <li><hr style="margin: 5px 0; border-color: #ebebeb;"></li>
+                                        <li>
+                                            <a asp-action="Logout" asp-controller="Auth" style="color: #d9534f;">
+                                                <i class="fa fa-sign-out"></i> Çıkış Yap
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            }
+                            else
+                            {
+                                <a asp-action="Login" asp-controller="Auth"><i class="fa fa-user"></i> Giriş Yap</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2">
+                <div class="header__logo">
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <nav class="header__menu">
+                    <ul>
+                        <li class="active">
+                            <a asp-controller="Home" asp-action="Index">Ana Sayfa</a>
+                        </li>
+
+                        <li>
+                            <a asp-controller="Home" asp-action="Listing">Mağaza</a>
+                        </li>
+
+                        <li>
+                            <a asp-controller="Home" asp-action="Contact">İletişim</a>
+                        </li>
+
+                        <li>
+                            <a asp-controller="Home" asp-action="AboutUs">Hakkımızda</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-lg-3">
+                <div class="header__cart">
+                    <ul>
+                        <li><a href="#"><i class="fa fa-heart"></i> <span></span></a></li>
+                        <li><a asp-controller="Cart" asp-action="Edit"><i class="fa fa-shopping-bag"></i> <span>@ViewBag.items</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="humberger__open">
+            <i class="fa fa-bars"></i>
+        </div>
+    </div>
+</header>

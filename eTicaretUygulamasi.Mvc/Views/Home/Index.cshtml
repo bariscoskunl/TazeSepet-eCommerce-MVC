@@ -1,0 +1,191 @@
+@model IEnumerable<eTicaretUygulamasi.Mvc.App.Data.Entities.ProductEntity>
+@{
+    ViewData["Title"] = "Ana Sayfa";
+
+}
+
+
+
+
+<!-- Page Preloder -->
+<div id="preloder">
+    <div class="loader"></div>
+</div>
+
+<!-- Humberger Begin -->
+<div class="humberger__menu__overlay"></div>
+
+<section class="hero">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3">
+                <partial name="_CategoriesPartial" />
+            </div>
+            <div class="col-lg-9">
+                <div class="hero__search">
+                    <div class="hero__search__form">
+                        <form asp-action="Index" asp-controller="Home" method="get">
+                            <div class="hero__search__categories">
+                                Tüm Kategoriler
+                                <span class="arrow_carrot-down"></span>
+                            </div>
+                            @* name="searchTerm" parametresi Controller'daki değişken ismiyle aynı olmalı *@
+                            <input type="text" name="searchTerm" placeholder="Ne aramıştınız?" value="@ViewBag.SearchTerm">
+                            <button type="submit" class="site-btn">ARA</button>
+                        </form>
+                    </div>
+                    <div class="hero__search__phone">
+                        <div class="hero__search__phone__icon">
+                            <i class="fa fa-phone"></i>
+                        </div>
+                        <div class="hero__search__phone__text">
+                            <h5>+90 212 888 88 88</h5>
+                            <span>7/24 destek hattı</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero__item set-bg" data-setbg="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1200&q=80" style="background-image: url('https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1200&q=80');">
+                    <div class="hero__text">
+                        <span>EN YENİ ÜRÜNLER</span>
+                        <h2>Kaliteli Ürünler <br />Uygun Fiyatlar</h2>
+                        <p>Ücretsiz kargo ve hızlı teslimat</p>
+                        <a asp-controller="Home" asp-action="Index" class="primary-btn">ALIŞVERİŞE BAŞLA</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Hero Section End -->
+<!-- Featured Section Begin -->
+<section class="featured spad">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <h2>Öne Çıkan Ürünler</h2>
+                </div>
+               
+            </div>
+        </div>
+        <div class="row featured__filter">
+            @if (!Model.Any())
+            {
+                <div class="col-lg-12 text-center py-5">
+                    <h4 class="text-muted">Aradığınız kriterlere uygun ürün bulunamadı.</h4>
+                    <a asp-action="Index" class="btn btn-link">Tüm ürünlere geri dön</a>
+                </div>
+            }
+            else
+            {
+                @foreach (var item in Model)
+                {
+                    <div class="col-lg-3 col-md-4 col-sm-6 mix @(item.Category?.Name?.ToLower() ?? "")">
+                        <div class="featured__item">
+                        
+                            <div class="featured__item__pic set-bg" data-setbg="@item.ImageUrl" style="background-image: url('@item.ImageUrl');">
+                                <ul class="featured__item__pic__hover">
+                                    <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+    
+                                    @if (item.StockAmount > 0)
+                                    {
+                                        @if (User.IsInRole("buyer") || User.IsInRole("seller"))
+                                        {
+                                            <li>
+                                                <a asp-action="AddProduct" asp-controller="Cart" asp-route-id="@item.Id">
+                                                    <i class="fa fa-shopping-cart"></i>
+                                                </a>
+                                            </li>
+                                        }
+                                    }
+                                </ul>
+                            </div>
+                            <div class="featured__item__text">
+                                <h6><a asp-action="ProductDetail" asp-controller="Home" asp-route-id="@item.Id">@item.DDName</a></h6>
+                                <h5>@item.Price.ToString("C2", new System.Globalization.CultureInfo("tr-TR"))</h5>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            </div>
+        </div>
+    </section>
+    <!-- Featured Section End -->
+    
+    <!-- Latest Products Section Begin -->
+    <section class="featured spad" style="padding-top: 0;">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h2>Yeni Gelenler</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row featured__filter">
+                @if (ViewBag.LatestProducts != null)
+                {
+                    @foreach (var item in ViewBag.LatestProducts)
+                    {
+                        <div class="col-lg-3 col-md-4 col-sm-6 mix">
+                            <div class="featured__item">
+                                <div class="featured__item__pic set-bg" data-setbg="@item.ImageUrl" style="background-image: url('@item.ImageUrl');">
+                                    <ul class="featured__item__pic__hover">
+                                        <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+
+                                        @if (item.StockAmount > 0)
+                                        {
+                                            @if (User.IsInRole("buyer") || User.IsInRole("seller"))
+                                            {
+                                                <li>
+                                                    <a asp-action="AddProduct" asp-controller="Cart" asp-route-id="@item.Id">
+                                                        <i class="fa fa-shopping-cart"></i>
+                                                    </a>
+                                                </li>
+                                            }
+                                        }
+                                    </ul>
+                                </div>
+                                <div class="featured__item__text">
+                                    <h6><a asp-action="ProductDetail" asp-controller="Home" asp-route-id="@item.Id">@item.DDName</a></h6>
+                                    <h5>@item.Price.ToString("C2", new System.Globalization.CultureInfo("tr-TR"))</h5>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </section>
+    <!-- Latest Products Section End -->
+    <!-- Banner Begin -->
+    <div class="banner pb-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="banner__pic" style="position: relative; border-radius: 10px; overflow: hidden; height: 260px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                        <img src="https://images.unsplash.com/photo-1498049794561-7780e7231661?w=800&q=80" style="width: 100%; height: 100%; object-fit: cover;" alt="Teknoloji İndirimleri">
+                        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to right, rgba(0,0,0,0.8), rgba(0,0,0,0.2)); display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 40px;">
+                            <h2 style="color: white; font-weight: 700; margin-bottom: 10px; font-size: 28px;">Teknoloji Günleri</h2>
+                            <p style="color: #f1f1f1; font-size: 16px; margin-bottom: 20px;">Elektronik kategorisinde net %20 indirim fırsatını kaçırmayın.</p>
+                            <a asp-controller="Home" asp-action="Index" asp-route-categoryId="1" class="site-btn" style="background: #7fad39; color: white; border-radius: 5px; font-weight: bold;">HEMEN İNCELE</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="banner__pic" style="position: relative; border-radius: 10px; overflow: hidden; height: 260px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                        <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=800&q=80" style="width: 100%; height: 100%; object-fit: cover;" alt="Kitap Fırsatları">
+                        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to right, rgba(0,0,0,0.8), rgba(0,0,0,0.2)); display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 40px;">
+                            <h2 style="color: white; font-weight: 700; margin-bottom: 10px; font-size: 28px;">Kitap Kurtlarına</h2>
+                            <p style="color: #f1f1f1; font-size: 16px; margin-bottom: 20px;">Özel seçki kitaplarda ve yeni çıkanlarda dev kampanya başladı.</p>
+                            <a asp-controller="Home" asp-action="Index" asp-route-categoryId="4" class="site-btn" style="background: #7fad39; color: white; border-radius: 5px; font-weight: bold;">ALIŞVERİŞE BAŞLA</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Banner End -->

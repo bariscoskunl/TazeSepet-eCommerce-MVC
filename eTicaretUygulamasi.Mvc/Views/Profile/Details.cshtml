@@ -1,0 +1,88 @@
+@model ProfileDetailsViewModel
+
+@{
+    ViewData["Title"] = "Profil Detayları";
+}
+
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-section set-bg" data-setbg="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&q=80" style="background-image: url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&q=80');">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>Hesabım</h2>
+                    <div class="breadcrumb__option">
+                        <a href="/">Ana Sayfa</a>
+                        <span>Profil Bilgilerim</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0" style="border-radius: 15px; overflow:hidden;">
+                <div class="card-header bg-white border-bottom-0 pt-4 pb-0 text-center">
+                    <i class="fa fa-user-circle" style="font-size: 60px; color: #7fad39; margin-bottom:15px;"></i>
+                    <h3 class="font-weight-bold">Kullanıcı Bilgileri</h3>
+                </div>
+                
+                <div class="card-body p-5">
+                    <div class="row mb-3 pb-3 border-bottom">
+                        <div class="col-sm-4 text-muted font-weight-bold">Adı:</div>
+                        <div class="col-sm-8 text-dark">@Model.FirstName</div>
+                    </div>
+                    <div class="row mb-3 pb-3 border-bottom">
+                        <div class="col-sm-4 text-muted font-weight-bold">Soyadı:</div>
+                        <div class="col-sm-8 text-dark">@Model.LastName</div>
+                    </div>
+                    <div class="row mb-3 pb-3 border-bottom">
+                        <div class="col-sm-4 text-muted font-weight-bold">E-posta:</div>
+                        <div class="col-sm-8 text-dark">@Model.Email</div>
+                    </div>
+                    <div class="row mb-3 pb-3 border-bottom">
+                        <div class="col-sm-4 text-muted font-weight-bold">Telefon:</div>
+                        <div class="col-sm-8 text-dark">@(string.IsNullOrEmpty(Model.Phone) ? "-" : Model.Phone)</div>
+                    </div>
+                    <div class="row mb-3 pb-3 border-bottom">
+                        <div class="col-sm-4 text-muted font-weight-bold">Adres:</div>
+                        <div class="col-sm-8 text-dark">@(string.IsNullOrEmpty(Model.Address) ? "-" : Model.Address)</div>
+                    </div>
+
+                    <div class="mt-4 text-center">
+                        <a asp-action="Edit" class="site-btn" style="border-radius:30px;">
+                            <i class="fa fa-edit"></i> Profili Düzenle
+                        </a>
+                        
+                        @if (User.IsInRole("seller"))
+                        {
+                            <a asp-action="MyProducts" asp-controller="Profile" class="site-btn ml-2" style="background:#17a2b8; border-radius:30px;">
+                                <i class="fa fa-list"></i> Ürünlerim
+                            </a>
+                        }
+
+                        @if (Model.RoleId == 1)
+                        {
+                            <a href="https://localhost:7220" class="site-btn ml-2" style="background:#dc3545; border-radius:30px;">
+                                <i class="fa fa-lock"></i> Admin Paneli
+                            </a>
+                        }
+                        
+                        @if (ViewBag.request == false && Model.RoleId == 3)
+                        {
+                            <form asp-action="SellerRequest" asp-controller="Profile" asp-route-id="@ViewBag.Id" method="post" style="display:inline; margin-left: 10px;">
+                                <button type="submit" class="site-btn" style="background:#007bff; border-radius:30px; border:none;">
+                                    Satıcı Olma İsteği Gönder
+                                </button>
+                            </form>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
