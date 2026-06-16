@@ -394,11 +394,11 @@ dotnet run
 
 **5. Varsayılan giriş bilgileri (Seed Data):**
 
-| Rol    | E-posta              | Şifre      |
-| ------ | -------------------- | ---------- |
-| Admin  | admin@tazesepet.com  | Admin123!  |
-| Seller | satici@tazesepet.com | Seller123! |
-| Buyer  | alici@tazesepet.com  | Buyer123!  |
+| Rol    | E-posta          | Şifre |
+| ------ | ---------------- | ----- |
+| Admin  | admin@mail.com   | 1234  |
+| Seller | ahmet@mail.com   | 1234  |
+| Buyer  | zeynep@mail.com  | 1234  |
 
 > Seed data'nın gerçek değerlerini `App.Data/Context/` klasöründeki ilgili dosyada bulabilirsiniz.
 
